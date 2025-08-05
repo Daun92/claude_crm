@@ -1,17 +1,16 @@
-name: Claude API 테스트 워크플로우
+name: Claude Code Action (Manual Setup)
 
 on:
-  workflow_dispatch: # 수동 실행용 트리거
+  workflow_dispatch:
 
 jobs:
   call-claude:
     runs-on: ubuntu-latest
-
     steps:
-      - name: 코드 체크아웃
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Claude 호출 (Anthropic API)
+      - name: Call Claude API manually
         run: |
           curl https://api.anthropic.com/v1/messages \
             -H "x-api-key: ${{ secrets.ANTHROPIC_API_KEY }}" \
@@ -20,5 +19,5 @@ jobs:
             -d '{
               "model": "claude-3-opus-20240229",
               "max_tokens": 100,
-              "messages": [{"role": "user", "content": "Hello Claude!"}]
+              "messages": [{"role": "user", "content": "What is Claude?"}]
             }'
